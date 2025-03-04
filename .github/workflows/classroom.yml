@@ -27,7 +27,7 @@ jobs:
           STUDENT_ID=""
           if [ -f "GitHW/studentID.md" ]; then
             CONTENT=$(cat GitHW/studentID.md)
-            if [[ "$CONTENT" =~ ^Hello\ World\ (A[0-9]{8})$ ]]; then
+            if [[ "$CONTENT" =~ ^Hello\ World\ ([A-Za-z][0-9]{8})$ ]]; then
               STUDENT_ID=${BASH_REMATCH[1]}
               echo "GitHW format is correct. Student ID: $STUDENT_ID"
               SCORE=$((SCORE + 8))
