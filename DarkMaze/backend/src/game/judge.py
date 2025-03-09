@@ -9,7 +9,7 @@ def _parse_map(map_string, map_size, reversal_nodes=[]):
     binary_list  = [bin(ord(c))[2:].zfill(8) for c in filtered_chars]
     
     bit_sequence = []
-    for binary in binary_list :
+    for binary in binary_list:
         first_half = int(binary[:4], 2)
         second_half = int(binary[4:], 2)
         bit_sequence.extend([first_half % 2, second_half % 2])
