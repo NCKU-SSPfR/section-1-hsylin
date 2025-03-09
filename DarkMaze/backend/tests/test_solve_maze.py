@@ -6,9 +6,8 @@ USERNAME = "TestUser"
 RESET_URL = f"http://127.0.0.1:8000/api/v1/reset?username={USERNAME}"
 LOGIN_URL = f"http://127.0.0.1:8000/api/v1/login"
 MOVE_URL = "http://127.0.0.1:8000/api/v1/move"
-MAX_ATTEMPTS = 500
+
 game_state = {}
-directions = ["up", "down", "left", "right"]
 
 async def login_request():
     """Simulates a frontend login."""
@@ -59,10 +58,22 @@ async def test_solver():
     global game_state
     await login_request()
     await reset_request()
-    for i in range(MAX_ATTEMPTS):
-        move = random.choice(directions)  # Pick a random direction
-        await move_request(move)
-        if game_state["health"] == 666: 
-            break
-    #print(game_state)
+
+    for i in range(5):
+        await move_request("down")
+    await move_request("right")    
+    await move_request("down")
+    for i in range(2):
+        await move_request("right")
+    for i in range(4):
+        await move_request("up")
+    for i in range(2):
+        await move_request("right")
+    await move_request("down")
+    for i in range(2):
+        await move_request("right")        
+    await move_request("down")
+    await move_request("right")
+    await move_request("down")
+
     assert game_state["health"] == 666
