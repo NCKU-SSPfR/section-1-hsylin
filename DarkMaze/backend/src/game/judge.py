@@ -10,8 +10,8 @@ def _parse_map(map_string, map_size, reversal_nodes=[]):
     
     bit_sequence = []
     for binary in binary_list :
-        first_half = int(Q[:4], 2)
-        second_half = int(Q[4:], 2)
+        first_half = int(binary[:4], 2)
+        second_half = int(binary[4:], 2)
         bit_sequence.extend([first_half % 2, second_half % 2])
     
     while len( bit_sequence) < width * height:
@@ -25,7 +25,7 @@ def _parse_map(map_string, map_size, reversal_nodes=[]):
         if 0 <= x < height and 0 <= y < width:
             binary_map[y, x] = 1 - binary_map[y, x]
     
-    return swiper
+    return binary_map
 
 def _load_maze_from_json(maze_level_name):
     with open("./src/game/maze_level/" + maze_level_name + ".json", 'r', encoding='utf-8') as f:
