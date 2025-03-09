@@ -17,13 +17,3 @@ def initialize():
     )
     """)
 
-    conn.commit()
-    conn.close()
-    conn = sqlite3.connect("game.db")
-    cursor = conn.cursor()
-    conn.commit()
-    conn.close()
-    conn = sqlite3.connect("game.db")
-    cursor = conn.cursor()
-    conn.commit()
-    conn.close()
