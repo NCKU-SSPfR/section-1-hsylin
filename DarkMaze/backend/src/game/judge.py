@@ -6,26 +6,26 @@ def _parse_map(map_string, map_size, reversal_nodes=[]):
     width, height = map_size
     filtered_chars = re.sub(r'[^a-zA-Z]', '', map_string)
     
-    QQ = [bin(ord(c))[2:].zfill(8) for c in filtered_chars]
+    binary_list = [bin(ord(c))[2:].zfill(8) for c in filtered_chars]
     
-    Dora_friend = []
-    for Q in QQ:
-        first_half = int(Q[:4], 2)
-        second_half = int(Q[4:], 2)
-        Dora_friend.extend([first_half % 2, second_half % 2])
+    bit_sequence = []
+    for binary in binary_list:
+        first_half = int(binary[:4], 2)
+        second_half = int(binary[4:], 2)
+        bit_sequence.extend([first_half % 2, second_half % 2])
     
-    while len(Dora_friend) < width * height:
-        Dora_friend.append(0)
+    while len(bit_sequence) < width * height:
+        bit_sequence.append(0)
     
-    Dora_friend = Dora_friend[:width * height]
+    bit_sequence = bit_sequence[:width * height]
     
-    swiper = np.array(Dora_friend).reshape((height, width))
+    binary_map = np.array(bit_sequence).reshape((height, width))
     
     for x, y in reversal_nodes:
         if 0 <= x < height and 0 <= y < width:
-            swiper[y, x] = 1 - swiper[y, x]
+            binary_map[y, x] = 1 - binary_map[y, x]
     
-    return swiper
+    return binary_map
 
 def _load_maze_from_json(maze_level_name):
     with open("./src/game/maze_level/" + maze_level_name + ".json", 'r', encoding='utf-8') as f:
