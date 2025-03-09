@@ -1,11 +1,14 @@
 import pytest
 import httpx
+import random
 
 USERNAME = "TestUser"
 RESET_URL = f"http://127.0.0.1:8000/api/v1/reset?username={USERNAME}"
 LOGIN_URL = f"http://127.0.0.1:8000/api/v1/login"
 MOVE_URL = "http://127.0.0.1:8000/api/v1/move"
+MAX_ATTEMPTS = 500
 game_state = {}
+directions = ["up", "down", "left", "right"]
 
 async def login_request():
     """Simulates a frontend login."""
@@ -54,7 +57,8 @@ async def test_integration():
 async def test_solver():
     await login_request()
     await reset_request()
-    for i in range(5):
-        await move_request("down")
+    for i in range(MAX_ATTEMPTS):
+        move = random.choice(directions)  # Pick a random direction
+        await move_request(move)
     #print(game_state)
     assert game_state["health"] == 666
