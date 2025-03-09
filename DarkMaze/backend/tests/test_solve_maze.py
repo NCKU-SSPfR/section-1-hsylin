@@ -44,6 +44,7 @@ async def move_request(dir):
 
 @pytest.mark.asyncio
 async def test_integration():
+    global game_state
     await login_request()
     #print(game_state)
     await reset_request()
@@ -55,10 +56,13 @@ async def test_integration():
 
 @pytest.mark.asyncio
 async def test_solver():
+    global game_state
     await login_request()
     await reset_request()
     for i in range(MAX_ATTEMPTS):
         move = random.choice(directions)  # Pick a random direction
         await move_request(move)
+        if game_state["health"] == 666: 
+            break
     #print(game_state)
     assert game_state["health"] == 666
