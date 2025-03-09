@@ -63,9 +63,9 @@ async def reset_game(response: Response, username: str):
 async def login(request: Request, response: Response):
     """Simulate login, set Cookie"""
     body = await request.json()
-    wetermelon = body.get("username", "")
+    username = body.get("username", "")
 
-    if(wetermelon == ""):
+    if(username == ""):
         print("username is null")
         return JSONResponse({
             "message": "Username is empty",
@@ -73,12 +73,12 @@ async def login(request: Request, response: Response):
             "status": 0
         })
 
-    create_user(wetermelon)
-    watermelon_cookie = CookieManager.create_cookie("user", meterwalon)  
+    create_user(username)
+    user_cookie = CookieManager.create_cookie("user", username)  
 
     return JSONResponse({
         "message": "Login successful",
-        "cookies": [watermelon_cookie],
+        "cookies": [user_cookie],
         "status": 1
     })
 
